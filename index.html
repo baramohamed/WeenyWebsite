@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+    <head>
+        <meta charset="UTF-8">
+        <title>My web site</title>
+        <meta name="description" contents="Just a test website for learning html, css and php">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?key=Al573cjvtENDyL6E0YVcK9NGg9L8ZUOp43cZpfMfbPO4Wj2-_EhKbAyRPQPGlYWh"></script>
+        
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
+        <script>
+        // Initialize Firebase
+        // TODO: Replace with your project's customized code snippet
+        var config = {
+            apiKey: "AIzaSyALSB6Lg5laEWHaadQpQNipdMaqOTxq4sA",
+            authDomain: "ikids-3fc4a.firebaseapp.com",
+            databaseURL: "https://ikids-3fc4a.firebaseio.com",
+            projectId: "ikids-3fc4a",
+            storageBucket: "ikids-3fc4a.appspot.com",
+            messagingSenderId: "818000793503"
+        };
+
+        firebase.initializeApp(config);
+        var database = firebase.database();
+
+/**        var snap = database.ref('/Positions/').on('value',function(snapshot){
+            snapshot.forEach(element => {
+                positions.push(element.val());
+                pushpin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(element.val().Latitude,element.val().Longitude));
+                map.entities.push(pushpin);
+            }); 
+        });
+        **/
+
+        </script>
+        <script>
+            var user = {
+                id : 0, 
+                bracelets : [ 
+                    {
+                        id : 0 , 
+                        positions : [
+                            { 
+                                Date : "2018/09/05 11:27:30",
+                                Latitude : 36.158209, 
+                                Longitude : 5.689909,
+                            },
+                            { 
+                                Date : "2018/09/05 11:28:00",
+                                Latitude : 36.158249, 
+                                Longitude : 5.689949,
+                            },
+                            { 
+                                Date : "2018/09/05 11:28:30",
+                                Latitude : 36.158289, 
+                                Longitude : 5.689989,
+                            },
+                            { 
+                                Date : "2018/09/05 11:29:00",
+                                Latitude : 36.158329, 
+                                Longitude : 5.690029,
+                            },
+                        ]
+                    }, 
+                    {
+                        id : 1 , 
+                        positions : [
+                            { 
+                                Date : "2018/09/05 11:27:30",
+                                Latitude : 36.157734, 
+                                Longitude : 5.686716,
+                            },
+                            { 
+                                Date : "2018/09/05 11:28:00",
+                                Latitude : 36.157774, 
+                                Longitude : 5.686756,
+                            },
+                            { 
+                                Date : "2018/09/05 11:28:30",
+                                Latitude : 36.157814, 
+                                Longitude : 5.686796,
+                            },
+                            { 
+                                Date : "2018/09/05 11:29:00",
+                                Latitude : 36.157854, 
+                                Longitude : 5.686836,
+                            },
+                        ]
+                    }, 
+                ],
+            };
+            
+        </script>
+        <script>
+            var map;
+            var activeMakers = null;
+                // Initialize and add the map
+            function initMap() {
+                // The location of Uluru
+                var uluru = {lat: 36.158209, lng: 5.689909};
+                // The map, centered at Uluru
+                map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 16, center: uluru});
+                
+            }
+            // Sets the map on all markers in the array.
+            function setMapOnAll(markers,map) {
+                markers.forEach(marker =>  {
+                    marker.setMap(map);
+                });
+            }
+            function selectBracelet(id)
+            {
+                if (activeMakers != null) setMapOnAll(activeMakers,null);
+                var markers = user.bracelets[id].positions.map( position => new google.maps.Marker({position : {lat : position.Latitude , lng : position.Longitude}}));
+                setMapOnAll(markers,map);
+                activeMakers = markers;
+            }
+        </script>
+                    <!--Load the API from the specified URL
+                    * The async attribute allows the browser to render the page while the API loads
+                    * The key parameter will contain your own API key (which is not needed for this tutorial)
+                    * The callback parameter executes the initMap() function
+                    -->
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxy4eZ-Q3-o-mXjdarogTuDEOamJ35ddY&callback=initMap">
+        </script>
+    </head>
+    <body class="h-100">
+        <div class="container-fluid bg-light h-100">
+            <div class="row h-100">
+                <div class="col-4">
+                    <nav class="navbar navbar-inverse bg-inverse">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#hamburgerMenu" aria-controls="hamburgerMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                    <div class="collapse" id="hamburgerMenu">
+                        <div class="bg-dark p-4">
+                            <h5 class="text-white h4">Collapsed content</h5>
+                            <span class="text-muted">Toggleable via the navbar brand.</span>
+                        </div>
+                    </div>
+                    </nav>
+                    
+                    <button type="button" class="btn btn-block d-flex flex-row m-2 p-0" onclick="selectBracelet(0);">
+                            <div class="col-3 align-self-center p-2">
+                                <img class="img-fluid" src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/256/person-icon.png"/>
+                            </div>
+                            <div class="col align-self-center">
+                                <h4 class="text-left">Full Name</h4>
+                                <p class="text-left" style=" white-space : normal; ">This is a descriptive paragraph of the specified person</p>
+                            </div>
+                    </button>
+                    <button type="button" class="btn btn-block d-flex flex-row m-2 p-0" onclick="selectBracelet(1);">
+                            <div class="col-3 align-self-center p-2">
+                                <img class="img-fluid" src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/256/person-icon.png"/>
+                            </div>
+                            <div class="col align-self-center">
+                                <h4 class="text-left">Full Name</h4>
+                                <p class="text-left" style=" white-space : normal; ">This is a descriptive paragraph of the specified person</p>
+                            </div>
+                    </button>
+                    <button type="button" class="btn btn-block d-flex flex-row m-2 p-0">
+                            <div class="col-3 align-self-center p-2">
+                                <img class="img-fluid" src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/256/person-icon.png"/>
+                            </div>
+                            <div class="col align-self-center">
+                                <h4 class="text-left">Full Name</h4>
+                                <p class="text-left" style=" white-space : normal; ">This is a descriptive paragraph of the specified person</p>
+                            </div>
+                    </button>
+                </div>
+                <div class="col p-0">
+                        <!--The div element for the map -->
+                        <div id="map" class="h-100"></div>
+                        
+                </div>
+            </div>
+            
+        </div>
+            
+        
+    </body>
+</html>
