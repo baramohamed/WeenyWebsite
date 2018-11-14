@@ -213,7 +213,7 @@ img {
 body {
 	font-family: 'Poppins', sans-serif;
     font-size: 100%;
-    background: url(../assets/family.jpg)no-repeat center top;
+    background: url(../assets/background.png)no-repeat center top;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -240,16 +240,27 @@ body {
 }
 
 h1 {
-    font-size: 3.2em;
+    font-size: 3.6em;
     text-transform: capitalize;
-    color: #fff;
-    text-shadow: 1px 1px 1px #000;
+    color: #fd5c63;
+    text-shadow: 1px 1px 1px #fff;
     letter-spacing: 3px;
-    margin: .8em 1vw;
+    margin: 0.8 0;
     text-align: center;
 }
 
-.w3ls-login form {
+
+h2 {
+    font-size: 2.8em;
+    text-transform: capitalize;
+    color: #fd5c63;
+    text-shadow: 1px 1px 1px #000;
+    letter-spacing: 3px;
+    margin: 0.8 0;
+    text-align: center;
+}
+
+.w3ls-login .form {
     max-width: 500px;
     margin: 0 5vw;
     border-radius: 8px;
@@ -265,7 +276,8 @@ h1 {
 
 .w3ls-login label {
     font-size: 14px;
-    color: #fff;
+    font-weight:500;
+    color: black;
     float: left;
     text-align: left;
     margin-bottom: 5px;
@@ -322,7 +334,7 @@ label.check {
     -webkit-flex-basis: 100%;
 }
 
-.w3ls-login input[type=submit] {
+.w3ls-login input[type=button] {
     width: 100%;
     padding: 0.5em 0;
     font-size: 1.1em;
@@ -343,10 +355,10 @@ label.check {
 	font-family: 'Poppins', sans-serif;
 }
 
-.w3ls-login input[type=submit]:hover {
+.w3ls-login input[type=button]:hover {
     background: transparent;
-	border: 2px solid #fff;
-    color: #fff;
+	border: 2px solid #000;
+    color: #000;
 }
 
 .w3ls-bot {
@@ -361,7 +373,7 @@ label.switch {
     height: 23px;
     padding-left: 5em;
     cursor: pointer;
-    color: #fff;
+    color: #000;
 }
 
 li:nth-child(2) a,
@@ -438,10 +450,11 @@ input:checked+.slider:before {
 
 .copy-wthree {
     margin: 4em 0 2em;
+    font-weight: 500;
 }
 
 .copy-wthree p {
-    color: #fff;
+    color: #000;
     font-size: 15px;
     letter-spacing: 1px;
     line-height: 1.8;
@@ -469,11 +482,17 @@ input:checked+.slider:before {
     h1 {
         font-size: 3.5vw;
     }
+    h2 {
+        font-size: 2.7vw;
+    }
 }
 
 @media(max-width:1024px) {
     h1 {
         font-size: 4.5vw;
+    }
+    h2 {
+        font-size: 3.7vw;
     }
 }
 
@@ -481,11 +500,17 @@ input:checked+.slider:before {
     h1 {
         font-size: 5vw;
     }
+    h2 {
+        font-size: 4.2vw;
+    }
 }
 
 @media(max-width:480px) {
     h1 {
         font-size: 2.5em;
+    }
+    h2 {
+        font-size: 1.7vw;
     }
     .w3ls-login form {
         padding: 7.5vw;
@@ -493,7 +518,7 @@ input:checked+.slider:before {
 	.w3ls-login input[type="text"], .w3ls-login input[type="password"] {
 		padding: 13px 15px;
 	}
-	.w3ls-login input[type=submit] {
+	.w3ls-login input[type=button] {
 		padding: 0.4em 0;
 		font-size: 1em;
 	}
