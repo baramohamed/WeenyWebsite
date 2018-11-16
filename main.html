@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+    <head>
+        <meta charset="UTF-8">
+        <title>Weeny</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        
+        <!-- The stylesheet -->
+        <link rel="stylesheet" href="css/main-page.css" />
+
+        <!-- Google Fonts -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Rochester|Bree+Serif" />
+        
+
+    </head>
+    <body class="h-100">
+        <div class="d-flex flex-column h-100" >
+            <div class="d-flex px-4 py-2 bg-dark">
+                <div class="d-inline-block flex-grow-1 text-danger font-weight-bold h2 ml-5">Weeny</div>
+                <div id="logout" class="d-inline-block btn btn-danger px-3 py-2">Logout</div>
+            </div>
+            <div class="d-flex flex-column" style="flex:1;">
+                <div id="map" class="h-100"></div>
+                <div id="children" class="row w-100 justify-content-between">
+                    <a class="arrow prev p-4">
+                        <i class="fas fa-angle-left fa-5x"></i>
+                    </a>
+                    <ol id="carousel">
+                        <!--
+                        <li><img src="assets/child.jpg" alt="Media Temple" /><p>Bara Mohammed Imame</p></li>
+                        <li><img src="assets/child.jpg" alt="Shutterstock" /></li>
+                        <li><img src="assets/child.jpg" alt="Pagelines" /></li>
+                        <li><img src="assets/child.jpg" alt="Themefuse" /></li>
+                        <li><img src="assets/child.jpg" alt="RapidXHTML" /></li>
+                        <li><img src="assets/child.jpg" alt="IM Creator" /></li>
+                        <li><img src="assets/child.jpg" alt="Email on Acid" /></li>
+                        <li><img src="assets/child.jpg" alt="Template SOLD" /></li>
+                        <li><img src="assets/child.jpg" alt="Linux Cloud VPS" /></li>
+                        <li><img src="assets/child.jpg" alt="Billgrid" /></li>
+                        <li><img src="assets/child.jpg" alt="MaxCDN" /></li>
+                        -->
+                    </ol>
+                    <a class="arrow next p-4">
+                        <i class="fas fa-angle-right fa-5x"></i>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </div>
+        <script src="js/firebase.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="js/script.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtwK1Hd3iMGyF6ffJSRK7I_STNEXxPdcQ&callback=initMap"></script>
+        <script>
+        	var map;
+            var activeMakers = null;
+                // Initialize and add the map
+            function initMap() {
+                // The location of Uluru
+                var uluru = {lat: 36.158209, lng: 5.689909};
+                // The map, centered at Uluru
+                map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 16, center: uluru});
+                
+            }
+           
+    </script>
+    </body>
+</html>

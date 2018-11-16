@@ -36,7 +36,7 @@
 
 		$("#logout").click(function(){
 			firebase.auth().signOut().then(function(){
-				window.location = 'login.html';
+				window.location = 'index.html';
 			},
 			function(error){
 				alert(error.message);
