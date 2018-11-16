@@ -1,20 +1,82 @@
 (function($){ 
-		
+	var user = 'baramohamed';
 	// Main code
 	$(document).ready(function(){
-	
+		var config = {
+			apiKey: "AIzaSyALSB6Lg5laEWHaadQpQNipdMaqOTxq4sA",
+			authDomain: "ikids-3fc4a.firebaseapp.com",
+			databaseURL: "https://ikids-3fc4a.firebaseio.com",
+			projectId: "ikids-3fc4a",
+			storageBucket: "ikids-3fc4a.appspot.com",
+			messagingSenderId: "818000793503"
+		};
+
+		firebase.initializeApp(config);
+		var database = firebase.database();
+
+		firebase.database().ref('/users/'+user+'/bracelets').once('value').then(function(snapshot) {
+			var n =parseInt(($(document).width()-240)/200);
+			snapshot.forEach(function(child){
+				if (n >0)
+				{
+					var str = '<li class="visible"><img src="assets/child.jpg" alt="Media Temple" /><p hidden>'+child.key+'</p><p>'+child.val().firstName + ' ' + child.val().lastName +'</p></li>';
+					n--;
+				}
+				else var str = '<li><img src="assets/child.jpg" alt="Media Temple" /><p hidden>'+child.key+'</p><p>'+child.val().firstName + ' ' + child.val().lastName +'</p></li>';
+				$("#carousel").append(str);
+			});
+			$("li").click(function(){
+                var key = this.children[1].textContent;
+                selectBracelet(key);
+            });
+			
+		});
+		
+		
+
+		$("#logout").click(function(){
+			firebase.auth().signOut().then(function(){
+				window.location = 'login.html';
+			},
+			function(error){
+				alert(error.message);
+			}
+			);
+		});
 		// Initialize the object on dom load
 		var navigator = new Navigator({
 			carousel: '#carousel',
 			nextButton: '.arrow.next',
 			prevButton: '.arrow.prev',
-			shuffle: true
+			shuffle: true,
+			chunkSize:parseInt(($(document).width()-240)/200),
 		});
 		
-		navigator.init();		
+		navigator.init();	
 		
 	});
 	
+
+	// Sets the map on all markers in the array.
+	function setMapOnAll(markers,map) {
+		markers.forEach(marker =>  {
+			marker.setMap(map);
+		});
+	}
+	function selectBracelet(key)
+	{
+		if (activeMakers != null) setMapOnAll(activeMakers,null);
+		firebase.database().ref('/users/'+user+'/bracelets/'+key+'/positions').once('value').then(function(snapshot) {
+			var markers = new Array();
+			snapshot.forEach(function(child){
+				markers.push(new google.maps.Marker({position : {lat : child.val().Latitude , lng : child.val().Longitude}}));
+			});
+			setMapOnAll(markers,map);
+			activeMakers = markers;
+			
+		});
+		
+	}
 	
 	// A Navigator "class" responsible for navigating through the carousel.
 	function Navigator(config) {
@@ -22,7 +84,7 @@
 		this.carousel = $(config.carousel); //the carousel element
 		this.nextButton = $(config.nextButton); //the next button element
 		this.prevButton = $(config.prevButton); //the previous button element
-		this.chunkSize = config.chunkSize || 5; //how many items to show at a time (maximum)
+		this.chunkSize = config.chunkSize || 3; //how many items to show at a time (maximum)
 		this.shuffle = config.shuffle || false; //should the list be shuffled first? Default is false.
 		
 		//private variables
